@@ -1,24 +1,41 @@
-The problem that this attempts to solve, is for instances where eager resolution of a service type (from within a constructor) causes an exception, because (a long way down the dependency chain), logic is executed which is not "ready" to execute.
+# Rationale for this project
+There are two problems which present themselves from time to time when using dependency injection.
 
-## Example
-1. An MVC or WebAPI controller - in its constructor it depends upon an `IGetsFunds`
-2. The `IGetsFunds` interface is created by a factory, which depends upon whether the user is a customer or not
+* Circular dependencies occasionally appear, which need to be 'broken' in order to resolve services sensibly.
+* Logic which is required to resolve a service might not be valid to execute, due to the current application/environment state.
+
+## Circular dependencies
+Whilst in ideal circumstances, circular dependencies would never exist, sometimes they can occur. This is particularly true in complex applications where the circular dependency could involve a deeply nested tree of service/component dependencies.
+
+A standard and easy way to 'break the circle' is to resolve one or more dependencies in the chain lazily. This way, the dependency is not resolved greedily. Unless actual usage of the service creates an infinite loop them the circle will remain broken via the lazy dependency. If usage does create an infinite loop, then there is nothing that can be done to help.
+
+## Dealing with invalid resolution
+Particularly when service/component resolution requires a factory with non-trivial logic, the resolution of services could raise an exception of the application is not in an expected state.
+
+### An example: MVC controller
+Consider the following example.
+
+1. An MVC or WebAPI controller - in its constructor it depends upon an `IGetsFunds` service
+2. The `IGetsFunds` component is created by a factory, which depends upon whether the current logged-in user is an existing customer or not
 3. The factory for getting the `IGetsFunds` depends upon a service which gets the currently-logged-in user and throws an exception if there is no user logged in
-4. Someone tries to use the controller whilst not being logged-in
+4. Someone tries to use the controller whilst they are not logged-in
 
-During the dependency resolution, the factory for the `IGetsFunds` interface will throw an exception, because there is no user logged-in.  In fact, marking that controller with `[Authorize]` attribute won't help, either, because the controller is constructed (and its dependencies resolved) before the authorize attribute is considered.
+During the dependency resolution, the factory for the `IGetsFunds` interface will throw an exception, because there is no user logged-in. Of course, they shouldn't use this controller unless they are logged-in, and so the developer decorates the controller wry the `[Authorize]` attribute.
+
+To the developer's surprise that doesn't work and they still see the exception. This is because the controller is constructed (and its dependencies resolved) before the authorize attribute is considered. The exception (during resolution) had already been thrown.
 
 The solution to this is to alter the dependency upon `IGetsFunds` to `Lazy<IGetsFunds>`.  This way, it won't be resolved until it is being used, and thus the authorize attribute will take effect and prevent an unauthenticated visitor from using it.
 
-## How Autofac can help
-It would be nice, though, if we could *avoid needing to change the controller type* to require a lazy dependency, and rather give it an implementation of its dependency which does not suffer that weakness on resolution.
+## Why Autofac should handle this
+In both of these scenarios above, the problem could be solved by simply changing the constructor dependency to `Lazy<T>` instead of `T`.
 
-This need for a lazy implementation is a resolution-centric problem, so it should ideally have a resolution-centric solution, in order to keep everything simpler.
+But.
 
-## Suggested fix
-Use **Castle.DynamicProxy** to create a proxy of `IGetsFunds` which depends upon a `Lazy<IGetsFunds>` and forwards its calls onto the lazy instance, only initialising the lazy instance when it is first used, and not at construction.
+Both of these problems are dependency resolution issues. The classes involved don't specifically need their services to be lazy, it's an implementation detail of the resolution process. So, it should be dealt with as part of dependency injection and not in the main application code.
 
-The controller in the example would then still depend simply upon `IGetsFunds`, unaware that it is actually being given a proxy object, for which the full chain of dependency resolution has not yet occurred.
+It also helps us follow **Open/Closed Principle**, because it means there is no need to change a class just because its dependencies (perhaps many times removed) require lazy resolution.
 
-## Dealing with circular dependencies
-This may be used to break Autofac circular dependencies by decorating an interface to become lazy automatically, without needing the change the class which consumes it.
+## Development plan
+Use **Castle.DynamicProxy** to create a proxy of the dependency service interface which itself depends upon a lazy instance of the actual service. The calls to the proxy's functionality are then forwarded onto the lazy instance.  Thus the 'real' instance is initialised lazily on first usage, but not when it is resolved.
+
+By using dynamic proxy, the laziness does not need to be exposed. All consumers would still depend simply on the interface type. The laziness would be transparent.
