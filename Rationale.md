@@ -19,3 +19,6 @@ This need for a lazy implementation is a resolution-centric problem, so it shoul
 Use **Castle.DynamicProxy** to create a proxy of `IGetsFunds` which depends upon a `Lazy<IGetsFunds>` and forwards its calls onto the lazy instance, only initialising the lazy instance when it is first used, and not at construction.
 
 The controller in the example would then still depend simply upon `IGetsFunds`, unaware that it is actually being given a proxy object, for which the full chain of dependency resolution has not yet occurred.
+
+## Dealing with circular dependencies
+This may be used to break Autofac circular dependencies by decorating an interface to become lazy automatically, without needing the change the class which consumes it.
