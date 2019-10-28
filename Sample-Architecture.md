@@ -36,7 +36,7 @@ Its rough behaviour should be:
     * It may be needed to pass an additional autofac parameter to prevent infinite resolution loops
 2. Use this function/lambda to create a `Lazy<T>`, with the lambda as its constructor parameter
 3. Create an interceptor (as described above), using that `Lazy<T>` as a dependency
-4. Create a dynamic proxy, using the proxy generator and the interceptor created in the previous step
+4. Create a dynamic **interface with target interface** proxy, using the proxy generator and the interceptor created in the previous step
 5. Return that proxy, cast to the component interface
 
 ### Registering the proxy generator
