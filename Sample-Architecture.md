@@ -36,8 +36,13 @@ Its rough behaviour should be:
     * It may be needed to pass an additional autofac parameter to prevent infinite resolution loops
 2. Use this function/lambda to create a `Lazy<T>`, with the lambda as its constructor parameter
 3. Create an interceptor (as described above), using that `Lazy<T>` as a dependency
-4. Create a dynamic **interface with target interface** proxy, using the proxy generator and the interceptor created in the previous step
-5. Return that proxy, cast to the component interface
+4. Create an **interface without target** proxy, which will serve as a stub implementation (is never actually used)
+    * It will need one interceptor, which should return default for the type (for methods with return values). It should ignore all parameters.
+5. Create a dynamic **interface with target interface** proxy, using:
+    * The proxy generator from the constructor dependency
+    * The interceptor created in the step 3
+    * The stub implementation created in the previous step
+6. Return that proxy from step 5, cast to the component interface
 
 ### Registering the proxy generator
 The proxy generator itself must be registered as **a singleton**; apparently there should only be one per app, or it performs badly.
