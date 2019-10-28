@@ -37,8 +37,6 @@ That lazy object will be passed as the constructor parameter to the auto-lazy in
 Finally it will use the proxy generator to create a proxy of the target interface, using the interceptor created above. This will be the return value.
 
 ## Unlikely to use Autofac's built in proxy support
-
-# Some older notes
 Autofac has a built-in support for Castle.DynamicProxy, but actually I'm not sure I want to use it for this.  I think that it's not completely relevant for this scenario.  Still, it's described in the following two articles.
 
 * https://github.com/autofac/Autofac.Extras.DynamicProxy
