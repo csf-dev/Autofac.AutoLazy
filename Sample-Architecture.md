@@ -20,7 +20,9 @@ When intercepting, the interceptor class will get the value from the lazy servic
 
 This way, the lazy instance is resolved with usage, not at resolution time.
 
-## An auto-lazy factory service
+## Interface for a service to resolve lazy components
+This will be the interface for the service which resolves lazy components.  The implementation would have a dependency upon a castle dynamic proxy `ProxyGenerator` instance. Its method signature will accept the normal Autofac resolution parameters (a component context and autofac parameters).
+
 ```csharp
 public interface IGetsLazyServices
 {
@@ -28,13 +30,17 @@ public interface IGetsLazyServices
 }
 ```
 
-The implementation would be a class which has a dependency upon a castle dynamic proxy `ProxyGenerator`. That proxy generator itself must be registered as **a singleton**; apparently there should only be one per app, or it performs badly.
+Its rough behaviour should be:
 
-It would create a small lambda which is a `Func<T>`, and is uses as the parameter to a `Lazy<T>`. That lambda will have a body which uses the component context and parameters in order to resolve the actual implementation of the service type.
+1. Create a small `Func<T>` which will resolve the *real component instance* from the component context (passing the autofac parameters also).
+    * It may be needed to pass an additional autofac parameter to prevent infinite resolution loops
+2. Use this function/lambda to create a `Lazy<T>`, with the lambda as its constructor parameter
+3. Create an interceptor (as described above), using that `Lazy<T>` as a dependency
+4. Create a dynamic proxy, using the proxy generator and the interceptor created in the previous step
+5. Return that proxy, cast to the component interface
 
-That lazy object will be passed as the constructor parameter to the auto-lazy interceptor class (above).
-
-Finally it will use the proxy generator to create a proxy of the target interface, using the interceptor created above. This will be the return value.
+### Registering the proxy generator
+The proxy generator itself must be registered as **a singleton**; apparently there should only be one per app, or it performs badly.
 
 ## Unlikely to use Autofac's built in proxy support
 Autofac has a built-in support for Castle.DynamicProxy, but actually I'm not sure I want to use it for this.  I think that it's not completely relevant for this scenario.  Still, it's described in the following two articles.
