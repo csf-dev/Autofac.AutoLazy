@@ -2,20 +2,6 @@
 ## An interceptor
 The **castle DynamicProxy interceptor** would be generic for the service (interface) type. It would take (in its constructor) a lazy instance of the service as a dependency.
 
-```csharp
-public class AutoLazyInterceptor<T> : IInterceptor
-{
-  readonly Lazy<T> lazyService;
-
-  // Interceptor implementation omitted
-
-  public AutoLazyInterceptor(Lazy<T> lazyService)
-  {
-    this.lazyService = lazyService;
-  }
-}
-```
-
 When intercepting, the interceptor class will get the value from the lazy service and [substitute it as the target for the invocation](https://kozmic.net/2009/04/27/castle-dynamic-proxy-tutorial-part-x-interface-proxies-with-target/). This is possible by casting the invocation parameter itself into [the `IChangeProxyTarget` interface](https://github.com/castleproject/Core/blob/master/src/Castle.Core/DynamicProxy/IChangeProxyTarget.cs). This is [demonstrated here](https://stackoverflow.com/a/17967944/6221779).
 
 This way, the lazy instance is resolved with usage, not at resolution time.

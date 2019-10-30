@@ -1,8 +1,3 @@
-public interface IGetsAutoLazyService
-{
-    T GetService<T>(Lazy<T> lazyService);
-}
-
 public class AutoLazyServiceFactory : IGetsAutoLazyService
 {
     readonly IGetsStubComponent stubComponentFactory;
@@ -20,11 +15,8 @@ public class AutoLazyServiceFactory : IGetsAutoLazyService
                                   IProxyGenerator proxyGenerator,
                                   Func<Lazy<T>,AutoLazyInterceptor<T>> interceptorFactory)
     {
-        // Initialise fields
+        this.stubComponentFactory = stubComponentFactory ?? throw new ArgumentNullException(nameof(stubComponentFactory));
+        this.proxyGenerator = proxyGenerator ?? throw new ArgumentNullException(nameof(proxyGenerator));
+        this.interceptorFactory = interceptorFactory ?? throw new ArgumentNullException(nameof(interceptorFactory));
     }
-}
-
-public class AutoLazyInterceptor<T> : IInterceptor
-{
-    // As documented in gist
 }

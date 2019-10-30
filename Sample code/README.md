@@ -1,0 +1,1 @@
+Note, none of this code has been tested or even put through a compiler.  It's just documentation of my thoughts as to how I might architect this.
