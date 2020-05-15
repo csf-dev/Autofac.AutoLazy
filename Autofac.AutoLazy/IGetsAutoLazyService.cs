@@ -22,6 +22,6 @@ namespace Autofac.AutoLazy
         /// <typeparam name="T">The type of service.</typeparam>
         /// <exception cref="ArgumentNullException">If <paramref name="lazy"/> is <c>null</c>.</exception>
         /// <exception cref="AutoLazyException">If the service type <typeparamref name="T"/> is not valid to be an auto-lazy service.</exception>
-        T GetAutoLazyService<T>(Lazy<T> lazy);
+        T GetAutoLazyService<T>(Lazy<T> lazy) where T : class;
     }
 }

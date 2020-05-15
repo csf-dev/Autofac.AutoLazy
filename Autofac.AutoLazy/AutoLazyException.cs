@@ -5,8 +5,8 @@ namespace Autofac.AutoLazy
     /// <summary>
     /// Raised if an attempt is made to crete an invalid auto-lazy service.
     /// </summary>
-#if !NETSTANDARD1_1
-    [global::System.Serializable]
+#if !NETSTANDARD1_3
+    [Serializable]
 #endif
     public class AutoLazyException : Exception
     {
@@ -34,7 +34,7 @@ namespace Autofac.AutoLazy
         {
         }
 
-#if !NETSTANDARD1_1
+#if !NETSTANDARD1_3
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoLazyException"/> class
         /// </summary>
