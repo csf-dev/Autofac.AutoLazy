@@ -11,7 +11,7 @@ install:
 before_build:
     - cmd: dotnet --version
     - cmd: dotnet restore --verbosity m
-    - cmd: dotnet-sonarscanner begin /k:"Autofac.AutoLazy" /v:AppVeyor_build_%APPVEYOR_BUILD_NUMBER% /o:craigfowler-github /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=%SONARCLOUD_SECRET_KEY% /d:sonar.cs.nunit.reportsPaths=%APPVEYOR_BUILD_FOLDER%\Autofac.AutoLazy.Tests\TestResults\TestResults.xml /d:sonar.cs.opencover.reportsPaths=%APPVEYOR_BUILD_FOLDER%\Autofac.AutoLazy.Tests\TestResults\coverage.opencover.xml
+    - cmd: dotnet-sonarscanner begin /k:"Autofac.AutoLazy" /v:AppVeyor_build_%APPVEYOR_BUILD_NUMBER% /o:craigfowler-github /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=%SONARCLOUD_SECRET_KEY% /d:sonar.cs.nunit.reportsPaths=%APPVEYOR_BUILD_FOLDER%\AutoLazy.Tests\TestResults\TestResults.xml /d:sonar.cs.opencover.reportsPaths=%APPVEYOR_BUILD_FOLDER%\AutoLazy.Tests\TestResults\coverage.opencover.xml
 
 build_script:
     - cmd: dotnet build
