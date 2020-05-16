@@ -10,6 +10,8 @@ namespace Autofac.AutoLazy
 
         public string GetString() => ConstructionCount.ToString();
 
+        public void DoTheThing() { /* No-op */ }
+
         public ServiceImplementation()
         {
             ConstructionCount++;

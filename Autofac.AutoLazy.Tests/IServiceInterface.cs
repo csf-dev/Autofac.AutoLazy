@@ -6,5 +6,7 @@ namespace Autofac.AutoLazy
         int GetNumber(string param1, string param2);
 
         string GetString();
+
+        void DoTheThing();
     }
 }

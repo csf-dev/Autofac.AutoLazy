@@ -26,12 +26,24 @@ namespace Autofac.AutoLazy
         }
 
         [Test, AutoData]
-        public void GetStub_returns_which_returns_null_for_reference_type([SingletonGenerator] IProxyGenerator generator,
-                                                                          string param1,
-                                                                          string param2)
+        public void GetStub_returns_which_returns_null_for_reference_type([SingletonGenerator] IProxyGenerator generator)
         {
             var sut = new StubFactory(generator, () => new StubInterceptor());
             Assert.That(() => sut.GetStub<IServiceInterface>()?.GetString(), Is.Null);
+        }
+
+        [Test, AutoData]
+        public void GetStub_does_not_throw_when_executing_a_void_method([SingletonGenerator] IProxyGenerator generator)
+        {
+            var sut = new StubFactory(generator, () => new StubInterceptor());
+            Assert.That(() => sut.GetStub<IServiceInterface>()?.DoTheThing(), Throws.Nothing);
+        }
+
+        [Test, AutoData]
+        public void GetStub_throws_exception_for_invalid_abstract_class([SingletonGenerator] IProxyGenerator generator)
+        {
+            var sut = new StubFactory(generator, () => new StubInterceptor());
+            Assert.That(() => sut.GetStub<AnAbstractClass>(), Throws.InstanceOf<AutoLazyException>());
         }
     }
 }
