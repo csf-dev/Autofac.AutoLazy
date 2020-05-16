@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Core;
-using AutoLazy;
+using Autofac;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy.Autofac
 {
     /// <summary>
     /// A service which uses an Autofac component context (and optionally, parameters)

@@ -1,11 +1,10 @@
 ﻿using System;
-using Autofac.AutoLazy.Autofixture;
+using AutoLazy.Autofixture;
 using AutoFixture.NUnit3;
-using Autofac.AutoLazy.Services;
+using AutoLazy.Services;
 using NUnit.Framework;
-using AutoLazy;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     [TestFixture,NonParallelizable]
     public class AutoLazyServiceFactoryIntegrationTests

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Autofac;
 using Autofac.Core;
+#if AUTOFAC_5x
 using Autofac.Core.Registration;
-using AutoLazy;
+#endif
 
-namespace Autofac.AutoLazy
+namespace AutoLazy.Autofac
 {
     /// <summary>
     /// <para>
@@ -31,7 +33,7 @@ namespace Autofac.AutoLazy
     /// will have been created by <see cref="IResolvesAutoLazyServices"/>, making it an auto-lazy service.
     /// </para>
     /// </remarks>
-    public class MakeAutoLazyByResolvedTypeModule<T> : Module where T : class
+    public class MakeAutoLazyByResolvedTypeModule<T> : global::Autofac.Module where T : class
     {
         readonly bool handlePropertyInjection;
 

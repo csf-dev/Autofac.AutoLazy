@@ -3,8 +3,9 @@ using Castle.DynamicProxy;
 using Autofac.Core;
 using System.Reflection;
 using AutoLazy;
+using AutoLazy.Autofac;
 
-namespace Autofac.AutoLazy
+namespace Autofac
 {
     /// <summary>
     /// Enacapsulates all of the dependency injection registration which needs to occur in order

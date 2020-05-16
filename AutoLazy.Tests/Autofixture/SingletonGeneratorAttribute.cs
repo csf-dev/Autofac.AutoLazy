@@ -4,7 +4,7 @@ using AutoFixture;
 using AutoFixture.NUnit3;
 using Castle.DynamicProxy;
 
-namespace Autofac.AutoLazy.Autofixture
+namespace AutoLazy.Autofixture
 {
     /// <summary>
     /// Applied to an <see cref="IProxyGenerator"/>, causes a singleton 'real' <see cref="ProxyGenerator"/>

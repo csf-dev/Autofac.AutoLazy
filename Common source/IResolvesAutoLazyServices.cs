@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Autofac.Core;
+using Autofac;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy.Autofac
 {
     /// <summary>
     /// An object which resolves instances of arbitrary service types (provided the type is an interface),

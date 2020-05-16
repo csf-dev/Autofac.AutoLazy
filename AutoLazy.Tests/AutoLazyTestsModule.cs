@@ -1,7 +1,8 @@
 ﻿using System;
-using Autofac.AutoLazy.Services;
+using AutoLazy.Services;
+using Autofac;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     public class AutoLazyTestsModule : Module
     {

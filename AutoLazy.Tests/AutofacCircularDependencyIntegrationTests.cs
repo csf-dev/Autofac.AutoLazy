@@ -1,10 +1,11 @@
 ﻿using System;
-using Autofac.AutoLazy.Autofixture;
-using Autofac.AutoLazy.Services;
+using AutoLazy.Autofixture;
+using AutoLazy.Services;
 using AutoFixture.NUnit3;
 using NUnit.Framework;
+using Autofac;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     [TestFixture,Parallelizable(ParallelScope.Self)]
     public class AutofacCircularDependencyIntegrationTests

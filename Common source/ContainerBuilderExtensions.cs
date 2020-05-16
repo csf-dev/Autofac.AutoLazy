@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using AutoLazy;
+using AutoLazy.Autofac;
 
-namespace Autofac.AutoLazy
+namespace Autofac
 {
     /// <summary>
     /// Extension methods for the <see cref="ContainerBuilder"/> type, related to AutoLazy.

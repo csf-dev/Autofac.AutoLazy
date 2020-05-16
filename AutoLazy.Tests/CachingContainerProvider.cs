@@ -1,5 +1,7 @@
 ﻿using System;
-namespace Autofac.AutoLazy
+using Autofac;
+
+namespace AutoLazy
 {
     public class CachingContainerProvider
     {

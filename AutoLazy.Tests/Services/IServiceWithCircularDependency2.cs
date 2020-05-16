@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Autofac.AutoLazy.Services
+namespace AutoLazy.Services
 {
     public interface IServiceWithCircularDependency2
     {

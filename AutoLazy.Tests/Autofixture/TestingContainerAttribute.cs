@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using Autofac;
 using AutoFixture;
 using AutoFixture.NUnit3;
 
-namespace Autofac.AutoLazy.Autofixture
+namespace AutoLazy.Autofixture
 {
     /// <summary>
     /// Gets an Autofac <see cref="IContainer"/> using a <see cref="CachingContainerProvider"/>

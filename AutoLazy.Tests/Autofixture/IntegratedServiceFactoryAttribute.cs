@@ -5,7 +5,7 @@ using AutoFixture.NUnit3;
 using AutoLazy;
 using Castle.DynamicProxy;
 
-namespace Autofac.AutoLazy.Autofixture
+namespace AutoLazy.Autofixture
 {
     /// <summary>
     /// Fully constructs an integrated instance of <see cref="IGetsAutoLazyServices"/>, using

@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{D05FF943
 		.travis.yml = .travis.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.AutoLazy.Tests", "Autofac.AutoLazy.Tests\Autofac.AutoLazy.Tests.csproj", "{5444F200-1333-4EBB-834B-F629196BAF73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLazy.Tests", "AutoLazy.Tests\AutoLazy.Tests.csproj", "{5444F200-1333-4EBB-834B-F629196BAF73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.AutoLazy4", "Autofac.AutoLazy4\Autofac.AutoLazy4.csproj", "{12636661-128F-4656-B454-19BDBE2F3FE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLazy.Autofac4", "AutoLazy.Autofac4\AutoLazy.Autofac4.csproj", "{12636661-128F-4656-B454-19BDBE2F3FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.AutoLazy5", "Autofac.AutoLazy5\Autofac.AutoLazy5.csproj", "{E3BC4039-28DE-43C9-8419-007C394E4083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLazy.Autofac5", "AutoLazy.Autofac5\AutoLazy.Autofac5.csproj", "{E3BC4039-28DE-43C9-8419-007C394E4083}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLazy", "AutoLazy\AutoLazy.csproj", "{960AC4E0-9B78-4BE7-8EB0-1D4B3166ECC7}"
 EndProject
