@@ -44,6 +44,17 @@ namespace Autofac.AutoLazy
         }
 
         /// <summary>
+        /// <para>
+        /// Initializes a new instance of the <see cref="AutoLazyModule"/> class, in a manner
+        /// which will register the proxy generator automatically.
+        /// </para>
+        /// <para>
+        /// This constructor is required in order for consumers to use <c>ContainerBuilder.RegisterModule&lt;T&gt;()</c>.
+        /// </para>
+        /// </summary>
+        public AutoLazyModule() : this(true) { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AutoLazyModule"/> class.
         /// </summary>
         /// <param name="registerProxyGenerator">If set to <c>true</c> then this module will register <see cref="ProxyGenerator"/> as
