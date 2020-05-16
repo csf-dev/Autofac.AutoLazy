@@ -1,5 +1,4 @@
-﻿using System;
-namespace Autofac.AutoLazy
+﻿namespace Autofac.AutoLazy
 {
     /// <summary>
     /// An object which gets instances of a arbitrary types, which have no behaviour of their own (IE: stubs).
