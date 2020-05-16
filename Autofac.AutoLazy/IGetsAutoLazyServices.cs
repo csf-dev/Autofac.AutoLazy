@@ -12,7 +12,7 @@ namespace Autofac.AutoLazy
     /// <c>.Value</c> property until first usage.
     /// </para>
     /// </summary>
-    public interface IGetsAutoLazyService
+    public interface IGetsAutoLazyServices
     {
         /// <summary>
         /// Gets an auto-lazy service which will wrap the specified <see cref="Lazy{T}"/> instance.

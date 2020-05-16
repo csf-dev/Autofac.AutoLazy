@@ -9,7 +9,7 @@ namespace Autofac.AutoLazy
     /// simply an instance of <c>T</c>, but where the underlying instance will not be resolved (via
     /// <see cref="Lazy{T}.Value"/>) until the service is first used.
     /// </summary>
-    public class AutoLazyServiceFactory : IGetsAutoLazyService
+    public class AutoLazyServiceFactory : IGetsAutoLazyServices
     {
         readonly IGetsStubs stubFactory;
         readonly IGetsAutoLazyInterceptors autoLazyInterceptorFactory;
