@@ -1,0 +1,14 @@
+language: csharp
+solution: Autofac.AutoLazy.sln
+
+jobs:
+    include:
+        -   dotnet: 2.2.207
+            mono: latest
+
+script:
+    -   dotnet test -c Debug_AF42
+    -   dotnet test -c Debug_AF49
+    -   dotnet test -c Debug_AF52
+    -   dotnet test -c Debug_CC40
+    -   dotnet test -c Debug_CC44

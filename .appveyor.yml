@@ -1,0 +1,29 @@
+version: '{branch}-{build}'
+image: Visual Studio 2019
+
+init:
+    - cmd: git config --global core.autocrlf true
+    
+install:
+    - cmd: git submodule update --init --recursive
+    - cmd: dotnet tool install --global dotnet-sonarscanner
+    
+before_build:
+    - cmd: dotnet --version
+    - cmd: dotnet restore --verbosity m
+    - cmd: dotnet-sonarscanner begin /k:"Autofac.AutoLazy" /v:AppVeyor_build_%APPVEYOR_BUILD_NUMBER% /o:craigfowler-github /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=%SONARCLOUD_SECRET_KEY% /d:sonar.cs.nunit.reportsPaths=%APPVEYOR_BUILD_FOLDER%\Autofac.AutoLazy.Tests\TestResults\TestResults.xml /d:sonar.cs.opencover.reportsPaths=%APPVEYOR_BUILD_FOLDER%\Autofac.AutoLazy.Tests\TestResults\coverage.opencover.xml
+
+build_script:
+    - cmd: dotnet build
+
+# Several test runs are used, to ensure that this
+# library supports all of the target versions of Autofac & Castle.Core
+test_script:
+    - cmd: dotnet test -c Debug_AF42 /p:CollectCoverage=true /p:CoverletOutputFormat=\"json,opencover\" /p:CoverletOutput=\"TestResults/\"  --test-adapter-path:. --logger:\"nunit\"
+    - cmd: dotnet test -c Debug_AF49
+    - cmd: dotnet test -c Debug_AF52
+    - cmd: dotnet test -c Debug_CC40
+    - cmd: dotnet test -c Debug_CC44
+
+after_test:
+    - cmd: dotnet-sonarscanner end /d:"sonar.login=%SONARCLOUD_SECRET_KEY%"
