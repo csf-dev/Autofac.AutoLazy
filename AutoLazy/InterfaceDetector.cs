@@ -16,7 +16,7 @@ namespace AutoLazy
             => AssertIsInterface(typeof(T));
 
         /// <summary>
-        /// Throws <see cref="AutoLazyException"/> if <typeparamref name="T"/> is not an interface.
+        /// Throws <see cref="AutoLazyException"/> if <paramref name="type"/> is not an interface.
         /// </summary>
         /// <param name="type">The type to test.</param>
         public static void AssertIsInterface(Type type)

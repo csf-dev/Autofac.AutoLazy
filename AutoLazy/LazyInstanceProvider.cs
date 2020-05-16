@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Reflection;
 
 namespace AutoLazy
 {
@@ -9,9 +8,10 @@ namespace AutoLazy
     /// </summary>
     /// <remarks>
     /// <para>
-    /// This class exists so that instances of <see cref="Autofac.Core.ResolvedParameter"/>
-    /// may 'detect' this class (by virtue of it being the <see cref="MemberInfo.DeclaringType"/>
-    /// of the <see cref="ParameterInfo.Member"/> of the parameter used by the resolved parameter.
+    /// This class exists so that instances of DI/Autofac services which
+    /// analyse constructor parameters for dependencies may 'detect' this class (by virtue
+    /// of it being the <see cref="System.Reflection.MemberInfo.DeclaringType"/> of the
+    /// <see cref="System.Reflection.ParameterInfo.Member"/> of the constructor parameter).
     /// </para>
     /// <para>
     /// That detection is required because otherwise the resolution process would get stuck in

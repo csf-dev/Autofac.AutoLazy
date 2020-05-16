@@ -75,7 +75,7 @@ builder.MakeAutoLazyInterface<IDependency>();
 ```
 
 The output from the scenario described above (resolve `MyComponent` then execute
-`UseDependency()` would instead be:
+`UseDependency()`) would instead be:
 
 ```
 Constructing component
