@@ -28,6 +28,8 @@ namespace Autofac.AutoLazy
                 .Register(ctx => ctx.Resolve<StubFactory>(GetStubInterceptorParameter()))
                 .As<IGetsStubs>();
 
+            builder.RegisterGeneric(typeof(LazyInstanceProvider<>));
+
             if (registerProxyGenerator)
             {
                 builder.RegisterType<ProxyGenerator>()

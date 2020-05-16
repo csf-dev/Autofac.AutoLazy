@@ -40,9 +40,7 @@ namespace Autofac.AutoLazy
         {
             if (lazy == null)
                 throw new ArgumentNullException(nameof(lazy));
-            if (!typeof(T).GetTypeInfo().IsInterface)
-                throw new AutoLazyException($"Auto-lazy services must be interfaces (even abstract classes will not suffice).\n" +
-                                            $"The type {typeof(T).Name} is not an interface.");
+            InterfaceDetector.AssertIsInterface<T>();
 
             var lazyInterceptor = autoLazyInterceptorFactory.GetAutoLazyInterceptor(lazy);
             var stubImplementation = stubFactory.GetStub<T>();

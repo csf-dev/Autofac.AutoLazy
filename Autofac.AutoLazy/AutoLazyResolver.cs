@@ -21,12 +21,11 @@ namespace Autofac.AutoLazy
         /// <typeparam name="T">The desired service type (must be an interface).</typeparam>
         public T ResolveAutoLazyService<T>(IComponentContext ctx, IEnumerable<Parameter> @params = null) where T : class
         {
-            if (ctx == null)
-                throw new ArgumentNullException(nameof(ctx));
+            if (ctx == null) throw new ArgumentNullException(nameof(ctx));
 
             var autoLazyFactory = ctx.Resolve<IGetsAutoLazyServices>();
-            var lazyInstance = ctx.Resolve<Lazy<T>>(@params ?? Enumerable.Empty<Parameter>());
-            return autoLazyFactory.GetAutoLazyService(lazyInstance);
+            var lazyProvider = ctx.Resolve<LazyInstanceProvider<T>>(@params ?? Enumerable.Empty<Parameter>());
+            return autoLazyFactory.GetAutoLazyService(lazyProvider.Instance);
         }
     }
 }

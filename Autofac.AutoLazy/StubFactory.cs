@@ -19,10 +19,7 @@ namespace Autofac.AutoLazy
         /// <typeparam name="T">The type of the stub to create.</typeparam>
         public T GetStub<T>() where T : class
         {
-            if (!typeof(T).GetTypeInfo().IsInterface)
-                throw new AutoLazyException($"Auto-lazy services must be interfaces (even abstract classes will not suffice).\n" +
-                	                        $"The type {typeof(T).Name} is not an interface.");
-
+            InterfaceDetector.AssertIsInterface<T>();
             var interceptor = interceptorFactory();
             return proxyGenerator.CreateInterfaceProxyWithoutTarget<T>(interceptor);
         }
