@@ -3,7 +3,7 @@ solution: Autofac.AutoLazy.sln
 
 jobs:
     include:
-        -   dotnet: 2.2.207
+        -   dotnet: 3.1.101
             mono: latest
 
 script:
