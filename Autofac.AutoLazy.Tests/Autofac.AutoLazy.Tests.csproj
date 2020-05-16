@@ -29,12 +29,6 @@
     <OutputPath>bin\$(Configuration)</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC32|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>portable</DebugType>
-    <OutputPath>bin\$(Configuration)</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC40|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
@@ -51,7 +45,6 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="AutoFixture.NUnit3" Version="4.11.0" />
-    <PackageReference Include="AutoFixture.AutoMoq" Version="4.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="coverlet.msbuild" Version="2.8.0">
@@ -63,13 +56,16 @@
     <PackageReference Include="Autofac" Version="4.2.0" Condition="'$(Configuration)' != 'Debug_AF49' and '$(Configuration)' != 'Debug_AF52'" />
     <PackageReference Include="Autofac" Version="4.9.4" Condition="'$(Configuration)' == 'Debug_AF49'" />
     <PackageReference Include="Autofac" Version="5.2.0" Condition="'$(Configuration)' == 'Debug_AF52'" />
-    <PackageReference Include="Castle.Core" Version="3.2.0" Condition="'$(Configuration)' == 'Debug_CC32'" />
-    <PackageReference Include="Castle.Core" Version="4.0.0" Condition="'$(Configuration)' != 'Debug_CC32' and '$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="Castle.Core" Version="4.0.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
     <PackageReference Include="Castle.Core" Version="4.4.1" Condition="'$(Configuration)' == 'Debug_CC44'" />
-    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" Condition="'$(Configuration)' == 'Debug_CC44'" />
   </ItemGroup>
     
   <ItemGroup>
     <ProjectReference Include="..\Autofac.AutoLazy\Autofac.AutoLazy.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Autofixture\" />
   </ItemGroup>
 </Project>
