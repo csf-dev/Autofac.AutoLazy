@@ -10,6 +10,8 @@ namespace Autofac.AutoLazy.Services
     {
         readonly IServiceWithCircularDependency1 dependency;
 
+        public IServiceWithCircularDependency2 DependencyProperty { get; set; }
+
         public string GetValue() => dependency.GetValue();
 
         public ServiceWhichDependsOnCircularDependency(IServiceWithCircularDependency1 dependency)

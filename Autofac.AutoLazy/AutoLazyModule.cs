@@ -1,6 +1,7 @@
 ﻿using System;
 using Castle.DynamicProxy;
 using Autofac.Core;
+using System.Reflection;
 
 namespace Autofac.AutoLazy
 {
@@ -20,6 +21,7 @@ namespace Autofac.AutoLazy
         {
             builder
                 .RegisterAssemblyTypes(ThisAssembly)
+                .Where(x => !IsOptionalModule(x))
                 .AsSelf()
                 .AsImplementedInterfaces()
                 .PreserveExistingDefaults();
@@ -37,6 +39,17 @@ namespace Autofac.AutoLazy
                     .As<IProxyGenerator>()
                     .SingleInstance();
             }
+        }
+
+        bool IsOptionalModule(Type type)
+        {
+            if (type == null) return false;
+            var typeInfo = type.GetTypeInfo();
+
+            if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(MakeAutoLazyByResolvedTypeModule<>))
+                return true;
+
+            return false;
         }
 
         ResolvedParameter GetStubInterceptorParameter()
