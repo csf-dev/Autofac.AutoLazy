@@ -57,7 +57,7 @@ builder.MakeConsumedInterfacesAutoLazy(true,
 
 // All of the specified IEnumerable<Type> will receive their
 // dependencies auto-lazily.
-builder.MakeConsumedInterfacesAutoLazy(enumerableOfServiceTypes);
+builder.MakeConsumedInterfacesAutoLazy(enumerableOfDependencyConsumerTypes);
 
 // Any classes which match the predicate (all controller types)
 // will receive their dependencies auto-lazily.
