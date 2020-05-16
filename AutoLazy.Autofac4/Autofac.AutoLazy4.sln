@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autofac.AutoLazy4", "Autofac.AutoLazy4.csproj", "{D04C318B-5285-487A-BFE0-E7D7549F7560}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Any CPU = Release|Any CPU
+		Debug_AF49|Any CPU = Debug_AF49|Any CPU
+		Debug_AF42|Any CPU = Debug_AF42|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug_AF49|Any CPU.ActiveCfg = Debug_AF49|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug_AF49|Any CPU.Build.0 = Debug_AF49|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug_AF42|Any CPU.ActiveCfg = Debug_AF42|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug_AF42|Any CPU.Build.0 = Debug_AF42|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D04C318B-5285-487A-BFE0-E7D7549F7560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <RootNamespace>AutoLazy</RootNamespace>
+  </PropertyGroup>
+      
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <DefineConstants>TRACE;</DefineConstants>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF49|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF42|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF52|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC40|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC44|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="AutoFixture.NUnit3" Version="4.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NunitXml.TestLogger" Version="2.1.41" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
+    <PackageReference Include="Autofac" Version="4.2.0" Condition="'$(Configuration)' != 'Debug_AF49' and '$(Configuration)' != 'Debug_AF52'" />
+    <PackageReference Include="Autofac" Version="4.9.4" Condition="'$(Configuration)' == 'Debug_AF49'" />
+    <PackageReference Include="Autofac" Version="5.2.0" Condition="'$(Configuration)' == 'Debug_AF52'" />
+    <PackageReference Include="Castle.Core" Version="4.0.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="Castle.Core" Version="4.4.1" Condition="'$(Configuration)' == 'Debug_CC44'" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" Condition="'$(Configuration)' == 'Debug_CC44'" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <ProjectReference Include="..\AutoLazy\AutoLazy.csproj" />
+    <ProjectReference Include="..\AutoLazy.Autofac4\AutoLazy.Autofac4.csproj" Condition="'$(Configuration)' != 'Debug_AF52'" />
+    <ProjectReference Include="..\AutoLazy.Autofac5\AutoLazy.Autofac5.csproj" Condition="'$(Configuration)' == 'Debug_AF52'" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Autofixture\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+</Project>
