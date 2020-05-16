@@ -12,10 +12,12 @@ builder.RegisterModule<AutoLazyModule>();
 ```
 
 ## Using AutoLazy
-AutoLazy provides two mechanisms by which a developer chooses which dependencies are resolved auto-lazily.  Each looks at the dependency *from a different angle*.  The first is based upon the interface which is depended-upon, the second is based upon the concrete class consuming dependencies.
+AutoLazy provides two mechanisms by which a developer chooses which dependencies are resolved auto-lazily.  Each looks at the dependency *from a different angle*.  The first is based upon the interface which is depended-upon, the second is based upon the concrete class consuming dependencies.  Those two mechanism are:
 
 * Select one or more *service interfaces*; whenever these services are resolved (no matter where they are consumed), they will be auto-lazy.
 * Select *dependency-consuming component classes*, either by listing them or by providing a matching predicate; any dependencies consumed by a matching class (where the dependency is an interface type) will be auto-lazy.
+
+A dependency will be resolved auto-lazily if *either* its service interface is chosen to be auto-lazy (the first mechanism) *or* if the consuming class has been chosen to have its dependencies provided lazily (the second mechanism).  Each usage of the functionality described in the following sections is **additive**.
 
 ### Selecting auto-lazy services
 To select auto-lazy services, use the following syntax with an Autofac `ContainerBuilder`.  All of these overloads provide a parameter which selects whether **property injection** is handled or not-handled.  In all cases it defaults to true.
