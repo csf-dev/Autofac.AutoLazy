@@ -77,7 +77,7 @@ namespace Autofac
         /// <param name="registerProxyGenerator">If set to <c>true</c> then this module will register <see cref="ProxyGenerator"/> as
         /// <see cref="IProxyGenerator"/> for you (single-instance).  Set this to false if you do not want this module to handle the registration of
         /// the proxy generator.  For example, if you use DynamicProxy in your consuming logic and already register it yourself.</param>
-        public AutoLazyModule(bool registerProxyGenerator = true)
+        public AutoLazyModule(bool registerProxyGenerator)
         {
             this.registerProxyGenerator = registerProxyGenerator;
         }

@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common source", "Common sou
 		Common source\MakeAutoLazyByResolvedTypeModule.cs = Common source\MakeAutoLazyByResolvedTypeModule.cs
 		Common source\README.md = Common source\README.md
 		Common source\AutoLazyModule.cs = Common source\AutoLazyModule.cs
+		Common source\AutoLazyResolver.cs = Common source\AutoLazyResolver.cs
+		Common source\IResolvesAutoLazyServices.cs = Common source\IResolvesAutoLazyServices.cs
 	EndProjectSection
 EndProject
 Global
