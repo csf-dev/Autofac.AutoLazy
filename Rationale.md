@@ -1,41 +1,59 @@
-# Rationale for this project
-There are two problems which present themselves from time to time when using dependency injection.
+# Why & when to use AutoLazy
+There are two common dependency-injection problems which require lazily-resolved dependencies.
 
-* Circular dependencies occasionally appear, which need to be 'broken' in order to resolve services sensibly.
-* Logic which is required to resolve a service might not be valid to execute, due to the current application/environment state.
+* Preventing invalid resolution
+* Working-around circular dependencies
+
+## Invalid resolution due to the application state
+Sometimes, particularly when a complex resolution takes place, a component cannot be resolved due
+to the current application state.  This can be particularly frustrating when the entry-point to
+the application has to be constructed before the application state can be checked.
+
+### Example: Web applications
+A common example of this occurs within ASP.NET & dotnet core **MVC and Web API**.  A Controller
+object may be decorated with `AuthorizeAttribute` in order to prevent visitors from those who are
+not logged-into the application.  However, the MVC/API frameworks will not test for the attribute
+until *after the controller instance is constructed*.  In a dependency-injection environment, that
+will include the construction of all of its dependencies.
+
+If the construction of dependencies involves (say) a factory service, which requires information
+about the currently-logged-in user in order to choose an instance, and this factory throws an
+exception when *there is no currently-logged-in user*, then for unauthenticated users browsing to
+that controller, they will see a crash (HTTP 500) error and not a forbidden (HTTP 403) error, as
+the developer would expect from the `AuthorizeAttribute`.  This is because the crash occurs before
+the authorization is checked.
+
+The easy way to solve this problem is to make the dependencies for your Controller classes **lazy**.
+If they are not fully resolved until they are used, then the authorization-check will occur first,
+as the developer expects.  The visitor is denied permission to execute the controller's action methods
+and the dependencies are never resolved at times when it would be invalid to do so.
 
 ## Circular dependencies
-Whilst in ideal circumstances, circular dependencies would never exist, sometimes they can occur. This is particularly true in complex applications where the circular dependency could involve a deeply nested tree of service/component dependencies.
+Before we go any further, *circular dependencies are usually a sign of poor design*.  Although
+AutoLazy can help work around them, it should be considered just that: a workaround for a architectural
+issue.  It is far better (if possible) to refactor your application and remove the circular
+dependencies.
 
-A standard and easy way to 'break the circle' is to resolve one or more dependencies in the chain lazily. This way, the dependency is not resolved greedily. Unless actual usage of the service creates an infinite loop them the circle will remain broken via the lazy dependency. If usage does create an infinite loop, then there is nothing that can be done to help.
+That said, circular dependency chains can be broken using AutoLazy, by marking one or more of the
+interfaces in the dependency-chain as an auto-lazy interface.  This will be effective as long as
+the actual execution paths of exercised logic are not circular.
 
-## Dealing with invalid resolution
-Particularly when service/component resolution requires a factory with non-trivial logic, the resolution of services could raise an exception of the application is not in an expected state.
+# Why handle this at the dependency injection level?
+In both of the scenarios above, these problems could be solved *without using AutoLazy*.  The
+developer could manually change the types of the dependency constructor parameters from `T` to
+`Lazy<T>` and receive the same end-result.
 
-### An example: MVC controller
-Consider the following example.
+However, for the scenarios described above, considering **[the dependency inversion principle]**,
+whether a dependency needs to be lazily-resolved or not is *an implementation detail*.  For example,
+the MVC/API Controller should not need to know that (perhaps behind multiple levels of abstraction),
+there is a factory which depends upon a currently-logged-in-user to construct the dependency.  IE:
+The controller's code should not need to change in order to deal with the way a different object
+is constructed.
 
-1. An MVC or WebAPI controller - in its constructor it depends upon an `IGetsFunds` service
-2. The `IGetsFunds` component is created by a factory, which depends upon whether the current logged-in user is an existing customer or not
-3. The factory for getting the `IGetsFunds` depends upon a service which gets the currently-logged-in user and throws an exception if there is no user logged in
-4. Someone tries to use the controller whilst they are not logged-in
+This describes *a dependency injection problem* and not a problem which lies in ths design of the
+class consuming the dependency.  This also touches on **[open/closed principle]**, prevening unwanted
+changes to existing classes..  **AutoLazy** allows the consumer to continue to depend on simply
+the interface, and solves the dependency injection problem in the dependency injection logic.
 
-During the dependency resolution, the factory for the `IGetsFunds` interface will throw an exception, because there is no user logged-in. Of course, they shouldn't use this controller unless they are logged-in, and so the developer decorates the controller wry the `[Authorize]` attribute.
-
-To the developer's surprise that doesn't work and they still see the exception. This is because the controller is constructed (and its dependencies resolved) before the authorize attribute is considered. The exception (during resolution) had already been thrown.
-
-The solution to this is to alter the dependency upon `IGetsFunds` to `Lazy<IGetsFunds>`.  This way, it won't be resolved until it is being used, and thus the authorize attribute will take effect and prevent an unauthenticated visitor from using it.
-
-## Why Autofac should handle this
-In both of these scenarios above, the problem could be solved by simply changing the constructor dependency to `Lazy<T>` instead of `T`.
-
-But.
-
-Both of these problems are dependency resolution issues. The classes involved don't specifically need their services to be lazy, it's an implementation detail of the resolution process. So, it should be dealt with as part of dependency injection and not in the main application code.
-
-It also helps us follow **Open/Closed Principle**, because it means there is no need to change a class just because its dependencies (perhaps many times removed) require lazy resolution.
-
-## Development plan
-Use **Castle.DynamicProxy** to create a proxy of the dependency service interface which itself depends upon a lazy instance of the actual service. The calls to the proxy's functionality are then forwarded onto the lazy instance.  Thus the 'real' instance is initialised lazily on first usage, but not when it is resolved.
-
-By using dynamic proxy, the laziness does not need to be exposed. All consumers would still depend simply on the interface type. The laziness would be transparent.
+[the dependency inversion principle]: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+[open/closed principle]: https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle
