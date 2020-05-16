@@ -1,5 +1,5 @@
 language: csharp
-solution: Autofac.AutoLazy.sln
+solution: AutoLazy.sln
 
 jobs:
     include:
