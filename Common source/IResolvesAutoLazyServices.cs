@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac.Core;
 using Autofac;
+using System;
 
 namespace AutoLazy.Autofac
 {
@@ -19,5 +20,15 @@ namespace AutoLazy.Autofac
         /// <param name="params">A collection of Autofac parameters.</param>
         /// <typeparam name="T">The desired service type (must be an interface).</typeparam>
         T ResolveAutoLazyService<T>(IComponentContext ctx, IEnumerable<Parameter> @params = null) where T : class;
+
+        /// <summary>
+        /// Resolves an auto-lazy implementation of the service type
+        /// <paramref name="serviceType"/> (which must be an interface).
+        /// </summary>
+        /// <returns>The auto-lazy service implementations.</returns>
+        /// <param name="ctx">An Autofac component context.</param>
+        /// <param name="serviceType">The desired service type (must be an interface).</param>
+        /// <param name="params">A collection of Autofac parameters.</param>
+        object ResolveAutoLazyService(IComponentContext ctx, Type serviceType, IEnumerable<Parameter> @params = null);
     }
 }

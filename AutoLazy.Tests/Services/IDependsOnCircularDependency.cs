@@ -4,6 +4,7 @@ namespace AutoLazy.Services
     public interface IDependsOnCircularDependency
     {
         string GetValue();
+        IServiceWithCircularDependency2 DependencyProperty { get; }
     }
 
     public class ServiceWhichDependsOnCircularDependency : IDependsOnCircularDependency

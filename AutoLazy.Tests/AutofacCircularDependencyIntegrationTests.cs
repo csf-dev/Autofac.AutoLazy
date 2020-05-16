@@ -56,6 +56,33 @@ namespace AutoLazy
             }
         }
 
+        [Test, AutoData]
+        public void Resolving_a_component_which_depends_upon_a_circular_dependency_does_not_throw_exception_when_the_component_gets_dependencies_lazily([TestingContainer] IContainer container)
+        {
+            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependencies))
+            {
+                Assert.That(() => scope.Resolve<IDependsOnCircularDependency>(), Throws.Nothing);
+            }
+        }
+
+        [Test, AutoData]
+        public void Resolving_a_component_which_is_marked_to_consume_dependencies_lazily_gets_a_property_value([TestingContainer] IContainer container)
+        {
+            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependencies))
+            {
+                Assert.That(() => scope.Resolve<IDependsOnCircularDependency>()?.DependencyProperty, Is.Not.Null);
+            }
+        }
+
+        [Test, AutoData]
+        public void Resolving_a_component_which_is_marked_to_consume_dependencies_lazily_does_not_have_a_property_value_when_property_injection_is_disabled([TestingContainer] IContainer container)
+        {
+            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependenciesWithoutPropertyInjection))
+            {
+                Assert.That(() => scope.Resolve<IDependsOnCircularDependency>()?.DependencyProperty, Is.Null);
+            }
+        }
+
         void MakeServiceWithCircularDependency2AutoLazy(ContainerBuilder builder)
         {
             builder.MakeAutoLazyInterface<IServiceWithCircularDependency2>();
@@ -75,6 +102,16 @@ namespace AutoLazy
                                            typeof(IServiceWithCircularDependency1),
                                            typeof(IServiceWithCircularDependency2),
                                            typeof(IDependsOnCircularDependency));
+        }
+
+        void MakeConsumerGetAutoLazyDependencies(ContainerBuilder builder)
+        {
+            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>();
+        }
+
+        void MakeConsumerGetAutoLazyDependenciesWithoutPropertyInjection(ContainerBuilder builder)
+        {
+            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>(false);
         }
     }
 }

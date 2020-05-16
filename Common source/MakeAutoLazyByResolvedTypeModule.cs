@@ -123,8 +123,6 @@ namespace AutoLazy.Autofac
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MakeAutoLazyByResolvedTypeModule{T}"/> class.
-        /// Instances created using this constructor may decide whether or not property-injection should
-        /// be handled.
         /// </summary>
         /// <param name="handlePropertyInjection">If set to <c>true</c> then property-injection is handled,
         /// by setting any settable properties (of type <typeparamref name="T"/>) of any resolved components

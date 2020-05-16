@@ -53,6 +53,9 @@
     <Compile Include="..\Common source\IResolvesAutoLazyServices.cs">
       <Link>IResolvesAutoLazyServices.cs</Link>
     </Compile>
+    <Compile Include="..\Common source\MakeAutoLazyByConsumerTypeModule.cs">
+      <Link>MakeAutoLazyByConsumerTypeModule.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="..\Tools\EnableMultiTargetingWithMono.targets" />
     
