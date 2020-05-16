@@ -20,6 +20,7 @@ namespace Autofac.AutoLazy
         {
             if (!(invocation is IChangeProxyTarget targetChanger)) return;
             targetChanger.ChangeInvocationTarget(lazyImplementation.Value);
+            invocation.Proceed();
         }
 
         /// <summary>
