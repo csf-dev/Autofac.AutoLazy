@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac.Core;
+using Autofac.Core.Registration;
+using AutoLazy;
 
 namespace Autofac.AutoLazy
 {
@@ -41,7 +43,11 @@ namespace Autofac.AutoLazy
         /// registrations - ordering is not important.</remarks>
         /// <param name="componentRegistry">The component registry.</param>
         /// <param name="registration">The registration to attach functionality to.</param>
+#if !AUTOFAC_5x
         protected override void AttachToComponentRegistration(IComponentRegistry componentRegistry, IComponentRegistration registration)
+#else
+        protected override void AttachToComponentRegistration(IComponentRegistryBuilder componentRegistry, IComponentRegistration registration)
+#endif
         {
             // Deals with constructor injection
             registration.Preparing += AddAutoLazyResolvedParameter;

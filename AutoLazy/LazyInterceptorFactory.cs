@@ -1,13 +1,12 @@
 ﻿using System;
 using Castle.DynamicProxy;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
-    /// An object which can create DynamicProxy <see cref="IInterceptor"/> instances
-    /// for a specified type, using a <see cref="Lazy{T}"/> object.
+    /// A factory which creates <see cref="AutoLazyInterceptor{T}"/> instances.
     /// </summary>
-    public interface IGetsAutoLazyInterceptors
+    public class LazyInterceptorFactory : IGetsAutoLazyInterceptors
     {
         /// <summary>
         /// Gets a DynamicProxy <see cref="IInterceptor"/> for the specified <see cref="Lazy{T}"/>
@@ -16,6 +15,7 @@ namespace Autofac.AutoLazy
         /// <returns>The auto-lazy interceptor.</returns>
         /// <param name="lazyImplementation">A lazy service implementation.</param>
         /// <typeparam name="T">The service type.</typeparam>
-        IInterceptor GetAutoLazyInterceptor<T>(Lazy<T> lazyImplementation) where T : class;
+        public IInterceptor GetAutoLazyInterceptor<T>(Lazy<T> lazyImplementation) where T : class
+            => new AutoLazyInterceptor<T>(lazyImplementation);
     }
 }

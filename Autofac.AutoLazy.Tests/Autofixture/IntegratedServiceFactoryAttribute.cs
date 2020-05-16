@@ -2,6 +2,7 @@
 using System.Reflection;
 using AutoFixture;
 using AutoFixture.NUnit3;
+using AutoLazy;
 using Castle.DynamicProxy;
 
 namespace Autofac.AutoLazy.Autofixture

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
     /// A marker-class of sorts, which provides an instance of

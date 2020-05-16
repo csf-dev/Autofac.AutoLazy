@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
     /// Raised if an attempt is made to crete an invalid auto-lazy service.

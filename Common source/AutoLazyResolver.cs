@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Core;
+using AutoLazy;
 
 namespace Autofac.AutoLazy
 {

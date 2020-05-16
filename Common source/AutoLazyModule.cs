@@ -2,6 +2,7 @@
 using Castle.DynamicProxy;
 using Autofac.Core;
 using System.Reflection;
+using AutoLazy;
 
 namespace Autofac.AutoLazy
 {
@@ -20,7 +21,7 @@ namespace Autofac.AutoLazy
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterAssemblyTypes(ThisAssembly)
+                .RegisterAssemblyTypes(ThisAssembly, typeof(AutoLazyServiceFactory).GetTypeInfo().Assembly)
                 .Where(x => !IsOptionalModule(x))
                 .AsSelf()
                 .AsImplementedInterfaces()

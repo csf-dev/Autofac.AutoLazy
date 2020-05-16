@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;netstandard2.1;net45;net461</TargetFrameworks>
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <DefineConstants>TRACE;</DefineConstants>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC40|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_CC44|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+    
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.0.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="Castle.Core" Version="4.4.1" Condition="'$(Configuration)' == 'Debug_CC44'" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.1.0" Condition="'$(Configuration)' != 'Debug_CC44'" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" Condition="'$(Configuration)' == 'Debug_CC44'" />
+  </ItemGroup>
+    
+  <Import Project="..\Tools\EnableMultiTargetingWithMono.targets" />
+
+</Project>

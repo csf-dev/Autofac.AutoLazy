@@ -2,7 +2,7 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
     /// <para>

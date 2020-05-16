@@ -1,7 +1,7 @@
 ﻿using System;
 using Castle.DynamicProxy;
 
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
     /// A DynamicProxy interceptor which changes the target for any invocation, provided the

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Autofac.AutoLazy
+namespace AutoLazy
 {
     /// <summary>
     /// <para>

@@ -3,6 +3,7 @@ using Autofac.AutoLazy.Autofixture;
 using AutoFixture.NUnit3;
 using Autofac.AutoLazy.Services;
 using NUnit.Framework;
+using AutoLazy;
 
 namespace Autofac.AutoLazy
 {
