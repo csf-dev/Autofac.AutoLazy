@@ -18,9 +18,19 @@ namespace Autofac.AutoLazy
             }
         }
 
+        [Test, AutoData]
+        public void Using_a_resolved_component_with_circular_dependency_uses_real_implementation([TestingContainer] IContainer container)
+        {
+            using (var scope = container.BeginLifetimeScope(ApplyAutoLazy))
+            {
+                // The real implementation of the services behind this dependency will return "Foo Bar"
+                Assert.That(() => scope.Resolve<IDependsOnCircularDependency>().GetValue(), Is.EqualTo("Foo Bar"));
+            }
+        }
+
         void ApplyAutoLazy(ContainerBuilder builder)
         {
-
+            builder.MakeAutoLazyInterface<IServiceWithCircularDependency2>();
         }
     }
 }
