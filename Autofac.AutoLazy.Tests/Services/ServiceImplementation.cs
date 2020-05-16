@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Autofac.AutoLazy
+namespace Autofac.AutoLazy.Services
 {
     public class ServiceImplementation : IServiceInterface
     {

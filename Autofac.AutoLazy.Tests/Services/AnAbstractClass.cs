@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Autofac.AutoLazy
+namespace Autofac.AutoLazy.Services
 {
     /// <summary>
     /// This abstract class is not valid to be AutoLazy, it will raise an exception when we try.

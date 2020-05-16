@@ -67,5 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Autofixture\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac.AutoLazy.Autofixture;
 using AutoFixture.NUnit3;
-using Castle.DynamicProxy;
+using Autofac.AutoLazy.Services;
 using NUnit.Framework;
 
 namespace Autofac.AutoLazy
