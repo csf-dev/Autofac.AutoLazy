@@ -8,7 +8,12 @@ This can be useful in [a number of circumstances].
 [**Autofac 4.x** and **Autofac 5.x**]: https://autofac.org/
 [a number of circumstances]: WhenToUseAutoLazy.md
 
-## Example
+## How to use AutoLazy
+Please read the **[installation & usage instructions]**.
+
+[installation & usage instructions]: InstallationAndUsage.md
+
+## Example: What AutoLazy does
 Here is a sample component which makes use of a dependency.
 
 ```csharp
