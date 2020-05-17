@@ -122,7 +122,16 @@ namespace AutoLazy.Autofac
             => ctx.Resolve<IResolvesAutoLazyServices>().ResolveAutoLazyService<T>(ctx);
 
         /// <summary>
+        /// <para>
         /// Initializes a new instance of the <see cref="MakeAutoLazyByResolvedTypeModule{T}"/> class.
+        /// </para>
+        /// <para>
+        /// Instead of using this constructor directly, use either one of the following methods (or an appropriate overload):
+        /// </para>
+        /// <list type="bullet">
+        /// <item><see cref="ContainerBuilderExtensions.MakeAutoLazyInterface{T}(ContainerBuilder, bool)"/></item>
+        /// <item><see cref="ContainerBuilderExtensions.MakeAutoLazyInterfaces(ContainerBuilder, IEnumerable{Type}, bool)"/></item>
+        /// </list>
         /// </summary>
         /// <param name="handlePropertyInjection">If set to <c>true</c> then property-injection is handled,
         /// by setting any settable properties (of type <typeparamref name="T"/>) of any resolved components

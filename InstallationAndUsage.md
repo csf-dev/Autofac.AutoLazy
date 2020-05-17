@@ -20,15 +20,16 @@ AutoLazy provides two mechanisms by which a developer chooses which dependencies
 A dependency will be resolved auto-lazily if *either* its service interface is chosen to be auto-lazy (the first mechanism) *or* if the consuming class has been chosen to have its dependencies provided lazily (the second mechanism).  Each usage of the functionality described in the following sections is **additive**.
 
 ### Selecting auto-lazy services
-To select auto-lazy services, use the following syntax with an Autofac `ContainerBuilder`.  All of these overloads provide a parameter which selects whether **property injection** is handled or not-handled.  In all cases it defaults to true.
+To select auto-lazy services, use the following syntax with an Autofac `ContainerBuilder`.  All but one of these overloads provide an optional parameter which selects whether **property injection** is handled or not-handled.  Where this parameter is optional, its default value is **false**.
 
 ```csharp
 // Choose a single service interface to always be auto-lazy.
 builder.MakeAutoLazyInterface<IServiceInterface>();
 
-// Choose a few services to always be auto-lazy,
-// the false parameter indicates that property-injection
-// will not be configured.
+// Choose a few services to always be auto-lazy.
+// The false parameter indicates that property-injection
+// will not be configured; this parameter is mandatory
+// for this overload.
 builder.MakeAutoLazyInterfaces(false,
                                typeof(IServiceInterface),
                                typeof(IDifferentServiceInterface),
@@ -40,16 +41,17 @@ builder.MakeAutoLazyInterfaces(enumerableOfServiceTypes);
 ```
 
 ### Selecting dependency-consumers to get auto-lazy dependencies
-To select dependency-consuming components for which all dependencies should be lazy, use the following syntax with an Autofac `ContainerBuilder`.  All of these overloads provide a parameter which selects whether **property injection** is handled or not-handled.  In all cases it defaults to true.
+To select dependency-consuming components for which all dependencies should be lazy, use the following syntax with an Autofac `ContainerBuilder`.  All but one of these overloads provide an optional parameter which selects whether **property injection** is handled or not-handled.  Where this parameter is optional, its default value is **false**.
 
 ```csharp
 // All interfaces that MyConcreteConsumer depends-upon
 // shall be auto-lazy.
 builder.MakeConsumedInterfacesAutoLazy<MyConcreteConsumer>()
 
-// Choose a few consumer types to get auto-lazy dependencies,
-// the true parameter indicates that property-injection
-// will be configured.
+// Choose a few consumer types to get auto-lazy dependencies.
+// The true parameter indicates that property-injection
+// will be configured; this parameter is mandatory
+// for this overload.
 builder.MakeConsumedInterfacesAutoLazy(true,
                                        typeof(AServiceClass),
                                        typeof(ADifferentServiceClass),
