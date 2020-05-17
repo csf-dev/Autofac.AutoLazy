@@ -59,7 +59,7 @@ namespace AutoLazy
         [Test, AutoData]
         public void Resolving_a_component_which_depends_upon_a_circular_dependency_does_not_throw_exception_when_the_component_gets_dependencies_lazily([TestingContainer] IContainer container)
         {
-            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependencies))
+            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependenciesWithPropertyInjection))
             {
                 Assert.That(() => scope.Resolve<IDependsOnCircularDependency>(), Throws.Nothing);
             }
@@ -68,7 +68,7 @@ namespace AutoLazy
         [Test, AutoData]
         public void Resolving_a_component_which_is_marked_to_consume_dependencies_lazily_gets_a_property_value([TestingContainer] IContainer container)
         {
-            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependencies))
+            using (var scope = container.BeginLifetimeScope(MakeConsumerGetAutoLazyDependenciesWithPropertyInjection))
             {
                 Assert.That(() => scope.Resolve<IDependsOnCircularDependency>()?.DependencyProperty, Is.Not.Null);
             }
@@ -104,14 +104,14 @@ namespace AutoLazy
                                            typeof(IDependsOnCircularDependency));
         }
 
-        void MakeConsumerGetAutoLazyDependencies(ContainerBuilder builder)
+        void MakeConsumerGetAutoLazyDependenciesWithPropertyInjection(ContainerBuilder builder)
         {
-            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>();
+            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>(true);
         }
 
         void MakeConsumerGetAutoLazyDependenciesWithoutPropertyInjection(ContainerBuilder builder)
         {
-            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>(false);
+            builder.MakeConsumedInterfacesAutoLazy<ServiceWhichDependsOnCircularDependency>();
         }
     }
 }
