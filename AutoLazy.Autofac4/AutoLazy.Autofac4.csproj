@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.3;netstandard2.0;netstandard2.1;net45;net461</TargetFrameworks>
+    <ReleaseVersion>1.0.0-rc1</ReleaseVersion>
+    <RootNamespace>AutoLazy.Autofac</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
+    <NuspecFile>AutoLazy.Autofac4.nuspec</NuspecFile>
+    <NuspecProperties>Version=$(ReleaseVersion);configuration=$(Configuration)</NuspecProperties>
+  </PropertyGroup>
+    
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
+    <DefineConstants>TRACE;</DefineConstants>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF49|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF42|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <OutputPath>bin\$(Configuration)</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.2.0" Condition="'$(Configuration)' != 'Debug_AF49' and '$(Configuration)' != 'Debug_AF52'" />
+    <PackageReference Include="Autofac" Version="4.9.4" Condition="'$(Configuration)' == 'Debug_AF49'" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <ProjectReference Include="..\AutoLazy\AutoLazy.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common source\ContainerBuilderExtensions.cs">
+      <Link>ContainerBuilderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Common source\MakeAutoLazyByResolvedTypeModule.cs">
+      <Link>MakeAutoLazyByResolvedTypeModule.cs</Link>
+    </Compile>
+    <Compile Include="..\Common source\AutoLazyModule.cs">
+      <Link>AutoLazyModule.cs</Link>
+    </Compile>
+    <Compile Include="..\Common source\AutoLazyResolver.cs">
+      <Link>AutoLazyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Common source\IResolvesAutoLazyServices.cs">
+      <Link>IResolvesAutoLazyServices.cs</Link>
+    </Compile>
+    <Compile Include="..\Common source\MakeAutoLazyByConsumerTypeModule.cs">
+      <Link>MakeAutoLazyByConsumerTypeModule.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="..\Tools\EnableMultiTargetingWithMono.targets" />
+    
+</Project>

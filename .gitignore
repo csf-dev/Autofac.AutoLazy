@@ -1,0 +1,6 @@
+.desktop
+.directory
+.vs/
+obj/
+bin/
+packages/
