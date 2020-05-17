@@ -32,7 +32,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin/$(Configuration)/**/AutoLazy*.dll" target="lib" />
-    <file src="bin/$(Configuration)/**/AutoLazy*.xml" target="lib" />
+    <file src="bin/$configuration$/**/AutoLazy*.dll" target="lib" />
+    <file src="bin/$configuration$/**/AutoLazy*.xml" target="lib" />
   </files>
 </package>
