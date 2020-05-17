@@ -131,7 +131,15 @@ namespace AutoLazy.Autofac
             => ctx.Resolve<IResolvesAutoLazyServices>().ResolveAutoLazyService(ctx, serviceType);
 
         /// <summary>
+        /// <para>
         /// Initializes a new instance of the <see cref="MakeAutoLazyByConsumerTypeModule"/> class.
+        /// </para>
+        /// <para>
+        /// Instead of using this constructor directly, use the following method (or an appropriate overload):
+        /// </para>
+        /// <list type="bullet">
+        /// <item><see cref="ContainerBuilderExtensions.MakeConsumedInterfacesAutoLazy{T}(ContainerBuilder, bool)"/></item>
+        /// </list>
         /// </summary>
         /// <param name="consumerPredicate">A predicate function which is used to determine
         /// which dependency-consumer types receive auto-lazy dependencies.</param>

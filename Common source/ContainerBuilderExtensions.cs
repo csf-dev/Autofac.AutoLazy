@@ -25,6 +25,12 @@ namespace Autofac
     /// </summary>
     public static class ContainerBuilderExtensions
     {
+        /// <summary>
+        /// Property injection is not configured by default; this corresponds to Autofac's
+        /// default behaviour (where the developer needs to explicitly enable it).
+        /// </summary>
+        internal const bool DefaultPropertyInjection = false;
+
         #region AutoLazy based on the dependency interface
 
         /// <summary>
@@ -38,7 +44,7 @@ namespace Autofac
         /// process (if any) will not be altered.</param>
         public static void MakeAutoLazyInterface(this ContainerBuilder builder,
                                                  Type serviceInterface,
-                                                 bool handlePropertyInjection = true)
+                                                 bool handlePropertyInjection = DefaultPropertyInjection)
         {
             InterfaceDetector.AssertIsInterface(serviceInterface);
             var moduleType = typeof(MakeAutoLazyByResolvedTypeModule<>).MakeGenericType(serviceInterface);
@@ -56,7 +62,7 @@ namespace Autofac
         /// process (if any) will not be altered.</param>
         /// <typeparam name="T">The service interface type.</typeparam>
         public static void MakeAutoLazyInterface<T>(this ContainerBuilder builder,
-                                                    bool handlePropertyInjection = true) where T : class
+                                                    bool handlePropertyInjection = DefaultPropertyInjection) where T : class
         {
             InterfaceDetector.AssertIsInterface<T>();
             builder.RegisterModule(new MakeAutoLazyByResolvedTypeModule<T>(handlePropertyInjection));
@@ -87,7 +93,7 @@ namespace Autofac
         /// process (if any) will not be altered.</param>
         public static void MakeAutoLazyInterfaces(this ContainerBuilder builder,
                                                   IEnumerable<Type> serviceInterfaces,
-                                                  bool handlePropertyInjection = true)
+                                                  bool handlePropertyInjection = DefaultPropertyInjection)
         {
             if (serviceInterfaces == null) throw new ArgumentNullException(nameof(serviceInterfaces));
             foreach (var serviceInterface in serviceInterfaces)
@@ -111,7 +117,7 @@ namespace Autofac
         /// If <c>false</c> then the property-injection process (if any) will not be altered.</param>
         /// <typeparam name="T">The type of the dependency-consuming component.</typeparam>
         public static void MakeConsumedInterfacesAutoLazy<T>(this ContainerBuilder builder,
-                                                             bool handlePropertyInjection = true) where T : class
+                                                             bool handlePropertyInjection = DefaultPropertyInjection) where T : class
             => builder.MakeConsumedInterfacesAutoLazy(t => Equals(t, typeof(T)), handlePropertyInjection);
 
         /// <summary>
@@ -145,7 +151,7 @@ namespace Autofac
         /// If <c>false</c> then the property-injection process (if any) will not be altered.</param>
         public static void MakeConsumedInterfacesAutoLazy(this ContainerBuilder builder,
                                                           IEnumerable<Type> consumerTypes,
-                                                          bool handlePropertyInjection = true)
+                                                          bool handlePropertyInjection = DefaultPropertyInjection)
             => builder.MakeConsumedInterfacesAutoLazy(t => consumerTypes.Contains(t), handlePropertyInjection);
 
         /// <summary>
@@ -163,7 +169,7 @@ namespace Autofac
         /// If <c>false</c> then the property-injection process (if any) will not be altered.</param>
         public static void MakeConsumedInterfacesAutoLazy(this ContainerBuilder builder,
                                                           Func<Type, bool> consumerTypePredicate,
-                                                          bool handlePropertyInjection = true)
+                                                          bool handlePropertyInjection = DefaultPropertyInjection)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
             var module = new MakeAutoLazyByConsumerTypeModule(consumerTypePredicate, handlePropertyInjection);
