@@ -1,23 +1,27 @@
 ## Installing AutoLazy
-To install AutoLazy into your project, first choose the appropriate package version corresponding to the version of Autofac you are using:
+To install AutoLazy into your solution, first choose the appropriate NuGet package, corresponding to the version of Autofac you are using.  Both AutoLazy packages depend on **Castle.Core** v4.0.0 or higher.
 
-* `AutoLazy.Autofac4` (for Autofac versions 4.x)
-* `AutoLazy.Autofac5` (for Autofac versions 5.x)
+* [`AutoLazy.Autofac4`] *for Autofac versions 4.2.0 up to (but not including) 5.0.0*
+* [`AutoLazy.Autofac5`] *for Autofac versions 5.0.0 and higher*
 
-Reference this package *from the assembly where you create your container*.  Next, install the `Autofac.AutoLazyModule` from the package (an example follows).  Once this is done, you're ready to choose which services & consuming components should be auto-lazy.
+Install the AutoLazy package *to the assembly where you create the Autofac container*; business logic projects which do not depend directly upon Autofac *do not need to depend on AutoLazy either*.  Next, register the `Autofac.AutoLazyModule` into the `ContainerBuilder`:
 
 ```csharp
-// builder is an Autofac ContainerBuilder
 builder.RegisterModule<AutoLazyModule>();
 ```
 
+With this done, you're ready to choose which services & consuming components should be auto-lazy.
+
+[`AutoLazy.Autofac4`]: https://www.nuget.org/packages/AutoLazy.Autofac4/
+[`AutoLazy.Autofac5`]: https://www.nuget.org/packages/AutoLazy.Autofac5/
+
 ## Using AutoLazy
-AutoLazy provides two mechanisms by which a developer chooses which dependencies are resolved auto-lazily.  Each looks at the dependency *from a different angle*.  The first is based upon the interface which is depended-upon, the second is based upon the concrete class consuming dependencies.  Those two mechanism are:
+AutoLazy provides two mechanisms by which a developer chooses which dependencies are resolved auto-lazily.  These mechanisms allow the developer to select auto-lazy resolution *from 'either side' of the dependency*.  Remember that AutoLazy *can only lazily-resolve dependencies which are consumed as interfaces*, though.
 
-* Select one or more *service interfaces*; whenever these services are resolved (no matter where they are consumed), they will be auto-lazy.
-* Select *dependency-consuming component classes*, either by listing them or by providing a matching predicate; any dependencies consumed by a matching class (where the dependency is an interface type) will be auto-lazy.
+*   The first mechanism looks at the interfaces which are *depended-upon*.  The developer selects one or more *service interfaces*.  Whenever these services are resolved (no matter where they are consumed), they will be auto-lazy.
+*   The second mechanism looks at the concrete classes *consuming dependencies*.  The developer selects *dependency-consuming component classes*, either by listing them or by providing a matching predicate.  Any dependencies (which are interfaces) consumed by a matching class will be auto-lazy.
 
-A dependency will be resolved auto-lazily if *either* its service interface is chosen to be auto-lazy (the first mechanism) *or* if the consuming class has been chosen to have its dependencies provided lazily (the second mechanism).  Each usage of the functionality described in the following sections is **additive**.
+Usages of these mechanisms is **additive**.  A dependency will be resolved auto-lazily if *either* its interface is made auto-lazy (via the first mechanism) *or* if its consumer is made to receive auto-lazy dependencies (the second mechanism).
 
 ### Selecting auto-lazy services
 To select auto-lazy services, use the following syntax with an Autofac `ContainerBuilder`.  All but one of these overloads provide an optional parameter which selects whether **property injection** is handled or not-handled.  Where this parameter is optional, its default value is **false**.
