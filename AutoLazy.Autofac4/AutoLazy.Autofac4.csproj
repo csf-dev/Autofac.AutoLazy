@@ -4,6 +4,8 @@
     <TargetFrameworks>netstandard1.3;netstandard2.0;netstandard2.1;net45;net461</TargetFrameworks>
     <ReleaseVersion>1.0.0</ReleaseVersion>
     <RootNamespace>AutoLazy.Autofac</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
     
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
