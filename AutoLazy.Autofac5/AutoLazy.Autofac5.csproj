@@ -6,6 +6,8 @@
     <RootNamespace>AutoLazy.Autofac</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
+    <NuspecFile>AutoLazy.Autofac5.nuspec</NuspecFile>
+    <NuspecProperties>Version=$(ReleaseVersion);Configuration=$(Configuration)</NuspecProperties>
   </PropertyGroup>
     
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

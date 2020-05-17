@@ -5,6 +5,7 @@
     <ReleaseVersion>1.0.0</ReleaseVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
     
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
