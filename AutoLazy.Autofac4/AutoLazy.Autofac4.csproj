@@ -4,20 +4,24 @@
     <TargetFrameworks>netstandard1.3;netstandard2.0;netstandard2.1;net45;net461</TargetFrameworks>
     <ReleaseVersion>1.0.0</ReleaseVersion>
     <RootNamespace>AutoLazy.Autofac</RootNamespace>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
+    <NuspecFile>AutoLazy.Autofac4.nuspec</NuspecFile>
+    <NuspecProperties>Version=$(ReleaseVersion);configuration=$(Configuration)</NuspecProperties>
   </PropertyGroup>
     
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
     <DefineConstants>TRACE;</DefineConstants>
     <OutputPath>bin\$(Configuration)</OutputPath>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Autofac.AutoLazy4.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF49|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <OutputPath>bin\$(Configuration)</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Autofac.AutoLazy4.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_AF42|AnyCPU' ">
@@ -25,7 +29,7 @@
     <DebugType>portable</DebugType>
     <OutputPath>bin\$(Configuration)</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Autofac.AutoLazy.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac4.xml</DocumentationFile>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
