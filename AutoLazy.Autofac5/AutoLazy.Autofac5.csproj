@@ -7,21 +7,21 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\CSF-Software-OSS.snk</AssemblyOriginatorKeyFile>
     <NuspecFile>AutoLazy.Autofac5.nuspec</NuspecFile>
-    <NuspecProperties>Version=$(ReleaseVersion);Configuration=$(Configuration)</NuspecProperties>
+    <NuspecProperties>Version=$(ReleaseVersion);configuration=$(Configuration)</NuspecProperties>
   </PropertyGroup>
     
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType></DebugType>
     <DefineConstants>TRACE;AUTOFAC_5x</DefineConstants>
     <OutputPath>bin\$(Configuration)</OutputPath>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Autofac.AutoLazy5.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac5.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <OutputPath>bin\$(Configuration)</OutputPath>
     <DefineConstants>TRACE;DEBUG;AUTOFAC_5x</DefineConstants>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Autofac.AutoLazy5.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\AutoLazy.Autofac5.xml</DocumentationFile>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
